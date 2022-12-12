@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -21,4 +21,30 @@ model Post {
   published Boolean @default(false)
   title     String
   author    User?   @relation(fields: [authorId], references: [id])
+}
+
+model Rule {
+  id  String  @id @default(uuid())
+  name String
+  description String?
+  stateNames String[]
+  others Int
+  chunks Chunk[]
+}
+
+model Chunk {
+  id String @id @default(uuid())
+  new Int
+  conds Cond[]
+  rule Rule @relation(fields:[ruleId], references: [id])
+  ruleId String
+}
+
+model Cond {
+  id String @id @default(uuid())
+  nbr Int[]
+  nbgStates Int
+  chunk Chunk @relation(fields:[chunkId],references: [id])
+  chunkId String
+  states Int[]
 }

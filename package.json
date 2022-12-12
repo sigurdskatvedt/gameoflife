@@ -14,12 +14,19 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.13",
     "eslint-config-custom": "*",
+    "postcss": "^8.4.20",
     "prettier": "latest",
+    "prettier-plugin-tailwindcss": "^0.2.1",
+    "tailwindcss": "^3.2.4",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./apps/webservice/prisma/seed.ts"
   },
   "dependencies": {},
   "packageManager": "yarn@1.22.19"

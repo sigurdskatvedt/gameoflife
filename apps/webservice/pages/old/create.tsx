@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Layout from "../components/Layout"
+import Layout from "../../components/Layout"
 import Router from "next/router"
 import gql from "graphql-tag"
 import { useMutation } from "@apollo/client"
@@ -28,14 +28,13 @@ function Draft() {
   const [content, setContent] = useState("")
   const [authorEmail, setAuthorEmail] = useState("")
 
-  const [createDraft] =
-    useMutation(CreateDraftMutation)
+  const [createDraft] = useMutation(CreateDraftMutation)
 
   return (
     <Layout>
       <div>
         <form
-          onSubmit={async (e) => {
+          onSubmit={async e => {
             e.preventDefault()
 
             await createDraft({
@@ -51,20 +50,20 @@ function Draft() {
           <h1>Create Draft</h1>
           <input
             autoFocus
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
             placeholder="Title"
             type="text"
             value={title}
           />
           <input
-            onChange={(e) => setAuthorEmail(e.target.value)}
+            onChange={e => setAuthorEmail(e.target.value)}
             placeholder="Author (email adress)"
             type="text"
             value={authorEmail}
           />
           <textarea
             cols={50}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={e => setContent(e.target.value)}
             placeholder="Content"
             rows={8}
             value={content}

@@ -43,6 +43,16 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Chunk: { // root type
+    id?: string | null; // String
+    new?: number | null; // Int
+  }
+  Cond: { // root type
+    id?: string | null; // String
+    nbgStates?: number | null; // Int
+    nbr?: Array<number | null> | null; // [Int]
+    states?: Array<number | null> | null; // [Int]
+  }
   Mutation: {};
   Post: { // root type
     content?: string | null; // String
@@ -51,6 +61,13 @@ export interface NexusGenObjects {
     title?: string | null; // String
   }
   Query: {};
+  Rule: { // root type
+    description?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+    others?: number | null; // Int
+    stateNames?: Array<string | null> | null; // [String]
+  }
   User: { // root type
     email?: string | null; // String
     id?: number | null; // Int
@@ -69,6 +86,19 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Chunk: { // field return type
+    conds: Array<NexusGenRootTypes['Cond'] | null> | null; // [Cond]
+    id: string | null; // String
+    new: number | null; // Int
+    rule: NexusGenRootTypes['Rule'] | null; // Rule
+  }
+  Cond: { // field return type
+    chunk: NexusGenRootTypes['Chunk'] | null; // Chunk
+    id: string | null; // String
+    nbgStates: number | null; // Int
+    nbr: Array<number | null> | null; // [Int]
+    states: Array<number | null> | null; // [Int]
+  }
   Mutation: { // field return type
     createDraft: NexusGenRootTypes['Post'] | null; // Post
     deletePost: NexusGenRootTypes['Post'] | null; // Post
@@ -83,10 +113,22 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
   }
   Query: { // field return type
+    allRules: Array<NexusGenRootTypes['Rule'] | null> | null; // [Rule]
+    chunk: NexusGenRootTypes['Chunk'] | null; // Chunk
+    cond: NexusGenRootTypes['Cond'] | null; // Cond
     drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     feed: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     post: NexusGenRootTypes['Post'] | null; // Post
+    uniqueRule: NexusGenRootTypes['Rule'] | null; // Rule
+  }
+  Rule: { // field return type
+    chunks: Array<NexusGenRootTypes['Chunk'] | null> | null; // [Chunk]
+    description: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    others: number | null; // Int
+    stateNames: Array<string | null> | null; // [String]
   }
   User: { // field return type
     email: string | null; // String
@@ -97,6 +139,19 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Chunk: { // field return type name
+    conds: 'Cond'
+    id: 'String'
+    new: 'Int'
+    rule: 'Rule'
+  }
+  Cond: { // field return type name
+    chunk: 'Chunk'
+    id: 'String'
+    nbgStates: 'Int'
+    nbr: 'Int'
+    states: 'Int'
+  }
   Mutation: { // field return type name
     createDraft: 'Post'
     deletePost: 'Post'
@@ -111,10 +166,22 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Query: { // field return type name
+    allRules: 'Rule'
+    chunk: 'Chunk'
+    cond: 'Cond'
     drafts: 'Post'
     feed: 'Post'
     filterPosts: 'Post'
     post: 'Post'
+    uniqueRule: 'Rule'
+  }
+  Rule: { // field return type name
+    chunks: 'Chunk'
+    description: 'String'
+    id: 'String'
+    name: 'String'
+    others: 'Int'
+    stateNames: 'String'
   }
   User: { // field return type name
     email: 'String'
@@ -143,11 +210,20 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    chunk: { // args
+      chunkId: string; // String!
+    }
+    cond: { // args
+      condId: string; // String!
+    }
     filterPosts: { // args
       searchString?: string | null; // String
     }
     post: { // args
       postId: string; // String!
+    }
+    uniqueRule: { // args
+      ruleId: string; // String!
     }
   }
 }

@@ -1,29 +1,30 @@
-import { ApolloServer } from 'apollo-server-micro'
-import { DateTimeResolver } from 'graphql-scalars'
-import { NextApiHandler } from 'next'
+import { ApolloServer } from "apollo-server-micro"
+import { DateTimeResolver } from "graphql-scalars"
+import { NextApiHandler } from "next"
 import {
   asNexusMethod,
+  list,
   makeSchema,
   nonNull,
   nullable,
   objectType,
   stringArg,
-} from 'nexus'
-import path from 'path'
-import cors from 'micro-cors'
-import prisma from '../../lib/prisma'
+} from "nexus"
+import path from "path"
+import cors from "micro-cors"
+import prisma from "../../lib/prisma"
 
-export const GQLDate = asNexusMethod(DateTimeResolver, 'date')
+export const GQLDate = asNexusMethod(DateTimeResolver, "date")
 
 const User = objectType({
-  name: 'User',
+  name: "User",
   definition(t) {
-    t.int('id')
-    t.string('name')
-    t.string('email')
-    t.list.field('posts', {
-      type: 'Post',
-      resolve: (parent) =>
+    t.int("id")
+    t.string("name")
+    t.string("email")
+    t.list.field("posts", {
+      type: "Post",
+      resolve: parent =>
         prisma.user
           .findUnique({
             where: { id: Number(parent.id) },
@@ -34,15 +35,15 @@ const User = objectType({
 })
 
 const Post = objectType({
-  name: 'Post',
+  name: "Post",
   definition(t) {
-    t.int('id')
-    t.string('title')
-    t.nullable.string('content')
-    t.boolean('published')
-    t.nullable.field('author', {
-      type: 'User',
-      resolve: (parent) =>
+    t.int("id")
+    t.string("title")
+    t.nullable.string("content")
+    t.boolean("published")
+    t.nullable.field("author", {
+      type: "User",
+      resolve: parent =>
         prisma.post
           .findUnique({
             where: { id: Number(parent.id) },
@@ -52,11 +53,119 @@ const Post = objectType({
   },
 })
 
-const Query = objectType({
-  name: 'Query',
+const Chunk = objectType({
+  name: "Chunk",
   definition(t) {
-    t.field('post', {
-      type: 'Post',
+    t.string("id")
+    t.int("new")
+    t.field("rule", {
+      type: "Rule",
+      resolve: parent =>
+        prisma.chunk
+          .findUnique({
+            where: { id: String(parent.id) },
+          })
+          .rule(),
+    })
+    t.field("conds", {
+      type: list("Cond"),
+      resolve: parent =>
+        prisma.chunk
+          .findUnique({
+            where: { id: String(parent.id) },
+          })
+          .conds(),
+    })
+  },
+})
+
+const Cond = objectType({
+  name: "Cond",
+  definition(t) {
+    t.string("id")
+    t.field("nbr", { type: list("Int") })
+    t.int("nbgStates")
+    t.field("chunk", {
+      type: "Chunk",
+      resolve: parent =>
+        prisma.cond
+          .findUnique({
+            where: { id: String(parent.id) },
+          })
+          .chunk(),
+    })
+    t.field("states", { type: list("Int") })
+  },
+})
+
+const Rule = objectType({
+  name: "Rule",
+  definition(t) {
+    t.string("id")
+    t.string("name")
+    t.string("description")
+    t.field("stateNames", { type: list("String") })
+    t.int("others")
+    t.field("chunks", {
+      type: list("Chunk"),
+      resolve: parent =>
+        prisma.rule
+          .findUnique({
+            where: { id: String(parent.id) },
+          })
+          .chunks(),
+    })
+  },
+})
+
+const Query = objectType({
+  name: "Query",
+  definition(t) {
+    t.field("cond", {
+      type: "Cond",
+      args: {
+        condId: nonNull(stringArg()),
+      },
+      resolve: (_, args) => {
+        return prisma.cond.findUnique({
+          where: { id: String(args.condId) },
+        })
+      },
+    })
+
+    t.field("uniqueRule", {
+      type: "Rule",
+      args: {
+        ruleId: nonNull(stringArg()),
+      },
+      resolve: (_, args) => {
+        return prisma.rule.findUnique({
+          where: { id: String(args.ruleId) },
+        })
+      },
+    })
+
+    t.field("allRules", {
+      type: list("Rule"),
+      resolve: (_, args) => {
+        return prisma.rule.findMany()
+      },
+    })
+
+    t.field("chunk", {
+      type: "Chunk",
+      args: {
+        chunkId: nonNull(stringArg()),
+      },
+      resolve: (_, args) => {
+        return prisma.chunk.findUnique({
+          where: { id: String(args.chunkId) },
+        })
+      },
+    })
+
+    t.field("post", {
+      type: "Post",
       args: {
         postId: nonNull(stringArg()),
       },
@@ -67,8 +176,8 @@ const Query = objectType({
       },
     })
 
-    t.list.field('feed', {
-      type: 'Post',
+    t.list.field("feed", {
+      type: "Post",
       resolve: (_parent, _args) => {
         return prisma.post.findMany({
           where: { published: true },
@@ -76,8 +185,8 @@ const Query = objectType({
       },
     })
 
-    t.list.field('drafts', {
-      type: 'Post',
+    t.list.field("drafts", {
+      type: "Post",
       resolve: (_parent, _args, ctx) => {
         return prisma.post.findMany({
           where: { published: false },
@@ -85,8 +194,8 @@ const Query = objectType({
       },
     })
 
-    t.list.field('filterPosts', {
-      type: 'Post',
+    t.list.field("filterPosts", {
+      type: "Post",
       args: {
         searchString: nullable(stringArg()),
       },
@@ -105,10 +214,10 @@ const Query = objectType({
 })
 
 const Mutation = objectType({
-  name: 'Mutation',
+  name: "Mutation",
   definition(t) {
-    t.field('signupUser', {
-      type: 'User',
+    t.field("signupUser", {
+      type: "User",
       args: {
         name: stringArg(),
         email: nonNull(stringArg()),
@@ -123,8 +232,8 @@ const Mutation = objectType({
       },
     })
 
-    t.nullable.field('deletePost', {
-      type: 'Post',
+    t.nullable.field("deletePost", {
+      type: "Post",
       args: {
         postId: stringArg(),
       },
@@ -135,8 +244,8 @@ const Mutation = objectType({
       },
     })
 
-    t.field('createDraft', {
-      type: 'Post',
+    t.field("createDraft", {
+      type: "Post",
       args: {
         title: nonNull(stringArg()),
         content: stringArg(),
@@ -156,8 +265,8 @@ const Mutation = objectType({
       },
     })
 
-    t.nullable.field('publish', {
-      type: 'Post',
+    t.nullable.field("publish", {
+      type: "Post",
       args: {
         postId: stringArg(),
       },
@@ -172,10 +281,10 @@ const Mutation = objectType({
 })
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Post, User, GQLDate],
+  types: [Query, Mutation, Post, User, Rule, Chunk, Cond, GQLDate],
   outputs: {
-    typegen: path.join(process.cwd(), 'generated/nexus-typegen.ts'),
-    schema: path.join(process.cwd(), 'generated/schema.graphql'),
+    typegen: path.join(process.cwd(), "generated/nexus-typegen.ts"),
+    schema: path.join(process.cwd(), "generated/schema.graphql"),
   },
 })
 
@@ -189,12 +298,12 @@ let apolloServerHandler: NextApiHandler
 
 async function getApolloServerHandler() {
   const apolloServer = new ApolloServer({ schema })
-  
+
   if (!apolloServerHandler) {
     await apolloServer.start()
 
     apolloServerHandler = apolloServer.createHandler({
-      path: '/api',
+      path: "/api",
     })
   }
 
@@ -204,7 +313,7 @@ async function getApolloServerHandler() {
 const handler: NextApiHandler = async (req, res) => {
   const apolloServerHandler = await getApolloServerHandler()
 
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     res.end()
     return
   }

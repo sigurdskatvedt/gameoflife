@@ -42,8 +42,5 @@
     "typescript": "4.9.3",
     "ts-config": "*",
     "eslint-config-custom": "*"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
   }
 }

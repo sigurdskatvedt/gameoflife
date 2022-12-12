@@ -1,47 +1,51 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from "@prisma/client"
+import { create } from "domain"
 
 const prisma = new PrismaClient()
 
 const userData: Prisma.UserCreateInput[] = [
   {
-    name: 'Alice',
-    email: 'alice@prisma.io',
+    name: "Alice",
+    email: "alice@prisma.io",
     posts: {
       create: [
         {
-          title: 'Join the Prisma Slack',
-          content: 'https://slack.prisma.io',
+          title: "Join the Prisma Slack",
+          content: "https://slack.prisma.io",
           published: true,
         },
       ],
     },
   },
+]
+
+const ruleData: Prisma.RuleCreateInput[] = [
   {
-    name: 'Nilu',
-    email: 'nilu@prisma.io',
-    posts: {
+    name: "Game of life",
+    description: "The basic rules for the James Conways Game of Life",
+    stateNames: ["dead", "live"],
+    others: 0,
+    chunks: {
       create: [
         {
-          title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
-        },
-      ],
-    },
-  },
-  {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Ask a question about Prisma on GitHub',
-          content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
+          conds: {
+            create: {
+              states: 1,
+              nbgStates: 1,
+              nbr: [2, 3],
+            },
+          },
+          new: 1,
         },
         {
-          title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
+          conds: {
+            create: {
+              states: 0,
+              nbgStates: 1,
+              nbr: [3],
+            },
+          },
+          new: 1,
         },
       ],
     },
@@ -51,11 +55,11 @@ const userData: Prisma.UserCreateInput[] = [
 export async function main() {
   try {
     console.log(`Start seeding ...`)
-    for (const u of userData) {
-      const user = await prisma.user.create({
-        data: u,
+    for (const rule of ruleData) {
+      const ruleResult = await prisma.rule.create({
+        data: rule,
       })
-      console.log(`Created user with id: ${user.id}`)
+      console.log(`Created user with id: ${ruleResult.id}`)
     }
     console.log(`Seeding finished.`)
   } catch (err) {
