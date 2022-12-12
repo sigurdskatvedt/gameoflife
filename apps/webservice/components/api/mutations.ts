@@ -1,6 +1,4 @@
 import { nonNull, objectType, stringArg } from "nexus"
-import path from "path"
-import cors from "micro-cors"
 import prisma from "../../lib/prisma"
 
 const Mutation = objectType({
