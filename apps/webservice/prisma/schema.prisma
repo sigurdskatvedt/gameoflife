@@ -14,10 +14,9 @@ model Rule {
   others Int
   chunks Chunk[]
 }
-
 model Chunk {
   id String @id @default(uuid())
-  newState Int
+  new Int
   conds Cond[]
   rule Rule @relation(fields:[ruleId], references: [id])
   ruleId String

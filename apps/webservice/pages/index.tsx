@@ -1,5 +1,5 @@
-export default function Home() {
-  return (
-    <h1 className="from-neutral-900 text-9xl font-extrabold">Hello World</h1>
-  )
+import { UiNavbar } from "ui"
+
+export default function MyPage() {
+  return <UiNavbar></UiNavbar>
 }
