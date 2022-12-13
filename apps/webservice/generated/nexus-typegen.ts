@@ -45,7 +45,7 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Chunk: { // root type
     id?: string | null; // String
-    new?: number | null; // Int
+    newState?: number | null; // Int
   }
   Cond: { // root type
     id?: string | null; // String
@@ -54,12 +54,6 @@ export interface NexusGenObjects {
     states?: Array<number | null> | null; // [Int]
   }
   Mutation: {};
-  Post: { // root type
-    content?: string | null; // String
-    id?: number | null; // Int
-    published?: boolean | null; // Boolean
-    title?: string | null; // String
-  }
   Query: {};
   Rule: { // root type
     description?: string | null; // String
@@ -67,11 +61,6 @@ export interface NexusGenObjects {
     name?: string | null; // String
     others?: number | null; // Int
     stateNames?: Array<string | null> | null; // [String]
-  }
-  User: { // root type
-    email?: string | null; // String
-    id?: number | null; // Int
-    name?: string | null; // String
   }
 }
 
@@ -89,7 +78,7 @@ export interface NexusGenFieldTypes {
   Chunk: { // field return type
     conds: Array<NexusGenRootTypes['Cond'] | null> | null; // [Cond]
     id: string | null; // String
-    new: number | null; // Int
+    newState: number | null; // Int
     rule: NexusGenRootTypes['Rule'] | null; // Rule
   }
   Cond: { // field return type
@@ -100,26 +89,14 @@ export interface NexusGenFieldTypes {
     states: Array<number | null> | null; // [Int]
   }
   Mutation: { // field return type
-    createDraft: NexusGenRootTypes['Post'] | null; // Post
-    deletePost: NexusGenRootTypes['Post'] | null; // Post
-    publish: NexusGenRootTypes['Post'] | null; // Post
-    signupUser: NexusGenRootTypes['User'] | null; // User
-  }
-  Post: { // field return type
-    author: NexusGenRootTypes['User'] | null; // User
-    content: string | null; // String
-    id: number | null; // Int
-    published: boolean | null; // Boolean
-    title: string | null; // String
+    createChunk: NexusGenRootTypes['Chunk'] | null; // Chunk
+    createCond: NexusGenRootTypes['Cond'] | null; // Cond
+    createRule: NexusGenRootTypes['Rule'] | null; // Rule
   }
   Query: { // field return type
     allRules: Array<NexusGenRootTypes['Rule'] | null> | null; // [Rule]
     chunk: NexusGenRootTypes['Chunk'] | null; // Chunk
     cond: NexusGenRootTypes['Cond'] | null; // Cond
-    drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    feed: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    post: NexusGenRootTypes['Post'] | null; // Post
     uniqueRule: NexusGenRootTypes['Rule'] | null; // Rule
   }
   Rule: { // field return type
@@ -130,19 +107,13 @@ export interface NexusGenFieldTypes {
     others: number | null; // Int
     stateNames: Array<string | null> | null; // [String]
   }
-  User: { // field return type
-    email: string | null; // String
-    id: number | null; // Int
-    name: string | null; // String
-    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-  }
 }
 
 export interface NexusGenFieldTypeNames {
   Chunk: { // field return type name
     conds: 'Cond'
     id: 'String'
-    new: 'Int'
+    newState: 'Int'
     rule: 'Rule'
   }
   Cond: { // field return type name
@@ -153,26 +124,14 @@ export interface NexusGenFieldTypeNames {
     states: 'Int'
   }
   Mutation: { // field return type name
-    createDraft: 'Post'
-    deletePost: 'Post'
-    publish: 'Post'
-    signupUser: 'User'
-  }
-  Post: { // field return type name
-    author: 'User'
-    content: 'String'
-    id: 'Int'
-    published: 'Boolean'
-    title: 'String'
+    createChunk: 'Chunk'
+    createCond: 'Cond'
+    createRule: 'Rule'
   }
   Query: { // field return type name
     allRules: 'Rule'
     chunk: 'Chunk'
     cond: 'Cond'
-    drafts: 'Post'
-    feed: 'Post'
-    filterPosts: 'Post'
-    post: 'Post'
     uniqueRule: 'Rule'
   }
   Rule: { // field return type name
@@ -183,30 +142,25 @@ export interface NexusGenFieldTypeNames {
     others: 'Int'
     stateNames: 'String'
   }
-  User: { // field return type name
-    email: 'String'
-    id: 'Int'
-    name: 'String'
-    posts: 'Post'
-  }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createDraft: { // args
-      authorEmail?: string | null; // String
-      content?: string | null; // String
-      title: string; // String!
+    createChunk: { // args
+      newState: number; // Int!
+      ruleId: string; // String!
     }
-    deletePost: { // args
-      postId?: string | null; // String
+    createCond: { // args
+      chunkId: string; // String!
+      nbgStates: number; // Int!
+      nbr: number[]; // [Int!]!
+      states: number[]; // [Int!]!
     }
-    publish: { // args
-      postId?: string | null; // String
-    }
-    signupUser: { // args
-      email: string; // String!
-      name?: string | null; // String
+    createRule: { // args
+      description: string; // String!
+      name: string; // String!
+      others: number; // Int!
+      stateNames: string[]; // [String!]!
     }
   }
   Query: {
@@ -215,12 +169,6 @@ export interface NexusGenArgTypes {
     }
     cond: { // args
       condId: string; // String!
-    }
-    filterPosts: { // args
-      searchString?: string | null; // String
-    }
-    post: { // args
-      postId: string; // String!
     }
     uniqueRule: { // args
       ruleId: string; // String!

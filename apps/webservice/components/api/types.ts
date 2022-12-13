@@ -1,48 +1,11 @@
 import { list, objectType } from "nexus"
 import prisma from "../../lib/prisma"
 
-export const User = objectType({
-  name: "User",
-  definition(t) {
-    t.int("id")
-    t.string("name")
-    t.string("email")
-    t.list.field("posts", {
-      type: "Post",
-      resolve: parent =>
-        prisma.user
-          .findUnique({
-            where: { id: Number(parent.id) },
-          })
-          .posts(),
-    })
-  },
-})
-
-export const Post = objectType({
-  name: "Post",
-  definition(t) {
-    t.int("id")
-    t.string("title")
-    t.nullable.string("content")
-    t.boolean("published")
-    t.nullable.field("author", {
-      type: "User",
-      resolve: parent =>
-        prisma.post
-          .findUnique({
-            where: { id: Number(parent.id) },
-          })
-          .author(),
-    })
-  },
-})
-
 export const Chunk = objectType({
   name: "Chunk",
   definition(t) {
     t.string("id")
-    t.int("new")
+    t.int("newState")
     t.field("rule", {
       type: "Rule",
       resolve: parent =>

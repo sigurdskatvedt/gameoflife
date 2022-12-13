@@ -3,22 +3,6 @@ import { create } from "domain"
 
 const prisma = new PrismaClient()
 
-const userData: Prisma.UserCreateInput[] = [
-  {
-    name: "Alice",
-    email: "alice@prisma.io",
-    posts: {
-      create: [
-        {
-          title: "Join the Prisma Slack",
-          content: "https://slack.prisma.io",
-          published: true,
-        },
-      ],
-    },
-  },
-]
-
 const ruleData: Prisma.RuleCreateInput[] = [
   {
     name: "Game of life",
@@ -35,7 +19,7 @@ const ruleData: Prisma.RuleCreateInput[] = [
               nbr: [2, 3],
             },
           },
-          new: 1,
+          newState: 1,
         },
         {
           conds: {
@@ -45,7 +29,7 @@ const ruleData: Prisma.RuleCreateInput[] = [
               nbr: [3],
             },
           },
-          new: 1,
+          newState: 1,
         },
       ],
     },
