@@ -1,0 +1,14 @@
+{
+  "name": "types",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "TIMING=1 eslint \"**/*.ts*\"",
+    "type-check": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}

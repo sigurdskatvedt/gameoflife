@@ -6,23 +6,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-model User {
-  email String  @unique
-  id    Int     @default(autoincrement()) @id
-  name  String?
-  posts Post[]
-}
-
-model Post {
-  authorId  Int?
-  content   String?
-  id        Int     @default(autoincrement()) @id
-  published Boolean @default(false)
-  title     String
-  author    User?   @relation(fields: [authorId], references: [id])
-}
-
 model Rule {
   id  String  @id @default(uuid())
   name String
@@ -31,10 +14,9 @@ model Rule {
   others Int
   chunks Chunk[]
 }
-
 model Chunk {
   id String @id @default(uuid())
-  new Int
+  newState Int
   conds Cond[]
   rule Rule @relation(fields:[ruleId], references: [id])
   ruleId String

@@ -1,5 +1,16 @@
-export default function Home() {
+import { useQuery } from "@apollo/client"
+import gql from "graphql-tag"
+import { Rule } from "types"
+import { UiNavbar, UiTable } from "ui"
+import client from "../lib/apollo-client"
+
+const MyPage = () => {
   return (
-    <h1 className="from-neutral-900 text-9xl font-extrabold">Hello World</h1>
+    <>
+      <UiNavbar></UiNavbar>
+      <UiTable></UiTable>
+    </>
   )
 }
+
+export default MyPage
