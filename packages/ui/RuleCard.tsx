@@ -17,7 +17,7 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
       </div>
       <div className="font-normal text-gray-700 dark:text-gray-400">
         <span className="pr-2 text-xl font-bold">
-          Possible state of cells:{" "}
+          Possible <span>state</span> of cells:{" "}
         </span>
         {rule.stateNames.map((state) => (
           <Card>{state.charAt(0).toUpperCase() + state.slice(1)}</Card>

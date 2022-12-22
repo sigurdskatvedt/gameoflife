@@ -31,7 +31,12 @@ export const UiRuleAccordion: React.FunctionComponent<Props> = ({ rule }) => {
       <Accordion alwaysOpen={true}>
         {rule.chunks.map((chunk: Chunk, i: number) => (
           <Accordion.Panel>
-            <UiAccordionItem chunk={chunk} chunkNumber={i}></UiAccordionItem>
+            <UiAccordionItem
+              chunk={chunk}
+              chunkNumber={i}
+              key={i}
+              states={rule.stateNames}
+            ></UiAccordionItem>
           </Accordion.Panel>
         ))}
       </Accordion>

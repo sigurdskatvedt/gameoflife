@@ -3,7 +3,7 @@ import { Rule } from "./Rule";
 
 export type Chunk = {
   id: string;
-  newState: string;
+  newState: number;
   conds: Cond[];
   rule: Rule;
   ruleId: string;
