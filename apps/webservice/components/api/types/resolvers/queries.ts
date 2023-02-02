@@ -1,5 +1,5 @@
 import { list, nonNull, nullable, objectType, stringArg } from "nexus"
-import prisma from "../../lib/prisma"
+import prisma from "../../../../lib/prisma"
 
 const Query = objectType({
   name: "Query",

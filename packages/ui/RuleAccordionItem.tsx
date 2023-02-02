@@ -1,6 +1,4 @@
-import { Accordion, Card } from "flowbite-react";
-import { LoaderNoResultError } from "graphql-config";
-import { Chunk, Cond, Rule } from "types";
+import { Chunk, Cond } from "types";
 
 interface Props {
   chunk: Chunk;
@@ -31,35 +29,45 @@ export const UiAccordionItem: React.FunctionComponent<Props> = ({
 
   return (
     <>
-      <Accordion.Title>Chunk {chunkNumber}</Accordion.Title>
-      <Accordion.Content>
-        <div className="mb-2 text-gray-500 dark:text-gray-400">
-          <div className="font-normal text-gray-700 dark:text-gray-400">
-            <span className="pr-2 text-xl font-bold">
-              New state for cells affected by rule:{" "}
-            </span>
-            <Card>
-              <span className="inline font-bold">{states[chunk.newState]}</span>
-            </Card>
-          </div>
-          <div className="font-normal text-gray-700 dark:text-gray-400">
-            <span className="pr-2 text-xl font-bold">Conditions: </span>
-            <Card>
-              <div className="inline">
-                If cell is{" "}
-                <span className="inline font-bold">{stateString} </span>
-                and it has
-                <span className="inline font-bold"> {neighbourString} </span>
-                neighbour(s) whose state(s) are
+      <div
+        tabIndex={0}
+        className="collapse-plus border-base-300 bg-base-100 rounded-box collapse border"
+      >
+        <div className="collapse-title text-xl font-medium">
+          Chunk {chunkNumber}
+        </div>
+        <div className="collapse-content">
+          <div className="mb-2 text-gray-500 dark:text-gray-400">
+            <div className="font-normal text-gray-700 dark:text-gray-400">
+              <span className="pr-2 text-xl font-bold">
+                New state for cells affected by rule:{" "}
+              </span>
+
+              <div className="card bg-base-100 w-96 shadow-xl">
                 <span className="inline font-bold">
-                  {" "}
-                  {states[cond.nbgStates]}{" "}
+                  {states[chunk.newState]}
                 </span>
               </div>
-            </Card>
-          </div>
+            </div>
+            <div className="font-normal text-gray-700 dark:text-gray-400">
+              <span className="pr-2 text-xl font-bold">Conditions: </span>
+              <div className="card bg-base-100 w-96 shadow-xl">
+                <div className="inline">
+                  If cell is{" "}
+                  <span className="inline font-bold">{stateString} </span>
+                  and it has
+                  <span className="inline font-bold"> {neighbourString} </span>
+                  neighbour(s) whose state(s) are
+                  <span className="inline font-bold">
+                    {" "}
+                    {states[cond.nbgStates]}{" "}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>{" "}
         </div>
-      </Accordion.Content>
+      </div>
     </>
   );
 };

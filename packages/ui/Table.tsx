@@ -1,8 +1,8 @@
-import { Table } from "flowbite-react";
 import { Rule } from "types";
 import { RuleTableRow } from "./RuleTableRow";
 import gql from "graphql-tag";
-import { useQuery } from "@apollo/client";
+import { TableComp } from "./TableComp";
+import { getAllRules, getRule } from "./getRule";
 
 const AllRulesQuery = gql`
   query AllRules {
@@ -26,33 +26,9 @@ const AllRulesQuery = gql`
   }
 `;
 
-export const UiTable: React.FunctionComponent = () => {
-  const { data, loading, error } = useQuery(AllRulesQuery);
-  if (data) {
-    const rules: Array<Rule> = data.allRules;
-    const row = rules.map((rule) => <RuleTableRow rule={rule}></RuleTableRow>);
-  }
+export async function UiTable() {
+  const data = await getAllRules(AllRulesQuery);
+  const rules: Array<Rule> = data.allRules;
 
-  return (
-    <>
-      {data ? (
-        <Table hoverable={true}>
-          <Table.Head>
-            <Table.HeadCell>Rule name</Table.HeadCell>
-            <Table.HeadCell>Description</Table.HeadCell>
-            <Table.HeadCell>Names of states</Table.HeadCell>
-            <Table.HeadCell>State of others</Table.HeadCell>
-            <Table.HeadCell>
-              <span className="sr-only">Edit</span>
-            </Table.HeadCell>
-          </Table.Head>
-          <Table.Body className="divide-y">
-            {data.allRules.map((rule: Rule, i: Number) => (
-              <RuleTableRow key={i} rule={rule}></RuleTableRow>
-            ))}
-          </Table.Body>
-        </Table>
-      ) : null}
-    </>
-  );
-};
+  return <>{data ? <TableComp rules={rules}></TableComp> : null}</>;
+}

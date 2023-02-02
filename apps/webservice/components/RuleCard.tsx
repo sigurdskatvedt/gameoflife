@@ -1,26 +1,22 @@
-"use client";
-import { useState, FormEventHandler } from "react";
-import { Rule } from "types";
+"use client"
+import { useState, FormEventHandler } from "react"
+import { Rule } from "types"
 
 interface Props {
-  rule?: Rule;
+  rule?: Rule
 }
 
 export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
-  let [stateList, setStateList] = useState<string[]>([]);
-  let [newState, setNewState] = useState("");
+  let [stateList, setStateList] = useState<string[]>(rule!.stateNames)
+  let [newState, setNewState] = useState("")
 
-  const stateInput: FormEventHandler<HTMLInputElement> | undefined = (e) => {
-    e.preventDefault();
-    setStateList((oldArray) => [...oldArray, newState]);
-  };
-
-  if (rule) {
-    setStateList(rule.stateNames);
+  const stateInput: FormEventHandler<HTMLInputElement> | undefined = e => {
+    e.preventDefault()
+    setStateList(oldArray => [...oldArray, newState])
   }
 
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
+    <div className="card w-96 bg-base-100 shadow-xl">
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {rule ? rule.name : null}
       </h5>
@@ -40,8 +36,8 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
           Possible state of cells:{" "}
         </span>
         {stateList
-          ? stateList.map((state) => (
-              <div className="card bg-base-100 w-96 shadow-xl">
+          ? stateList.map(state => (
+              <div className="card w-96 bg-base-100 shadow-xl">
                 {state.charAt(0).toUpperCase() + state.slice(1)}
               </div>
             ))
@@ -51,11 +47,11 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
           <input
             type="text"
             id="newState"
-            className="input margin-l-2 w-full max-w-xs"
+            className="margin-l-2 input w-full max-w-xs"
             placeholder="new state"
             required={true}
-            onChange={(e) => {
-              newState = e.target.value;
+            onChange={e => {
+              newState = e.target.value
             }}
           />
         </form>
@@ -64,7 +60,7 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
         <span className="pr-2 text-xl font-bold">
           State of cells not affected by rule:{" "}
         </span>
-        <div className="card bg-base-100 w-96 shadow-xl">
+        <div className="card w-96 bg-base-100 shadow-xl">
           {rule
             ? rule.stateNames[rule.others].charAt(0).toUpperCase() +
               rule.stateNames[rule.others].slice(1)
@@ -72,5 +68,5 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

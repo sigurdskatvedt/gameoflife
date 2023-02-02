@@ -1,5 +1,5 @@
 import { intArg, list, nonNull, objectType, stringArg } from "nexus"
-import prisma from "../../lib/prisma"
+import prisma from "../../../../lib/prisma"
 
 const Mutation = objectType({
   name: "Mutation",
