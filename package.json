@@ -26,6 +26,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./apps/webservice/prisma/seed.ts"
   },
   "dependencies": {
+    "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.13",
     "daisyui": "^2.46.1",
     "encoding": "^0.1.13",

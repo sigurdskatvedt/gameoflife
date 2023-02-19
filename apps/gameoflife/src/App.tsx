@@ -1,8 +1,12 @@
 import produce from "immer";
+import "leaflet/dist/leaflet.css"; // <- Leaflet styles
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import "./App.css";
 import { useCallback, useRef, useState } from "react";
+import { LatLngExpression } from "leaflet";
 //import "./App.css";
 
-function App() {
+/* function App() {
   // TODO: Get these from user input
   const numCols = 50;
   const numRows = 50;
@@ -104,6 +108,30 @@ function App() {
       </div>
     </>
   );
-}
+} */
+
+// @src/app.jsx
+
+const App = () => {
+  const position = [51.505, -0.09] as LatLngExpression;
+  return (
+    <MapContainer
+      center={position}
+      zoom={13}
+      scrollWheelZoom={true}
+      style={{ minHeight: "100vh", minWidth: "100vw" }}
+    >
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <Marker position={position}>
+        <Popup>
+          A pretty CSS3 popup. <br /> Easily customizable.
+        </Popup>
+      </Marker>
+    </MapContainer>
+  );
+};
 
 export default App;
