@@ -1,4 +1,5 @@
 "use client"
+import request from "graphql-request"
 import gql from "graphql-tag"
 import { Rule } from "types"
 import { UiNavbar, UiRuleAccordion, getRule } from "ui"

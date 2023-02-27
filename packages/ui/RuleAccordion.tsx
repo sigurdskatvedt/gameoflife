@@ -1,9 +1,27 @@
 import { Chunk, Rule } from "types";
 import { UiAccordionItem } from "./RuleAccordionItem";
-
+import { gql } from "graphql-request";
+        
 interface Props {
   rule: Rule;
 }
+
+const chunksQuery = gql`
+  query RuleQuery($ruleId: String!) {
+    uniqueRule(ruleId: $ruleId) {
+      chunks {
+        id
+        newState
+        conds {
+          id
+          nbgStates
+          nbr
+          states
+        }
+      }
+    }
+  }
+`;
 
 export const UiRuleAccordion: React.FunctionComponent<Props> = ({ rule }) => {
   return (

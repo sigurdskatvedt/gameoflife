@@ -44,7 +44,6 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
               </div>
             ))
           : null}
-
         {/* 
 // @ts-expect-error*/}
         <form onSubmit={stateInput}>

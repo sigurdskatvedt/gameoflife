@@ -1,6 +1,5 @@
 "use client"
-import { UiNavbar } from "ui"
-import { UiRuleCard } from "../../../components/RuleCard"
+import { UiNavbar, UiRuleAccordion, UiRuleCard } from "ui"
 
 function CreatePage() {
   return (

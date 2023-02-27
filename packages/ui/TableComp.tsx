@@ -1,3 +1,4 @@
+
 import { Key } from "react";
 import { Rule } from "types";
 import { RuleTableRow, RuleTableRowProps } from "./RuleTableRow";
@@ -29,4 +30,20 @@ export const TableComp: React.FC<Props> = ({ rules }) => {
       </table>
     </div>
   );
-};
+}
+/*     <Table hoverable={true}>
+      <Table.Head>
+        <Table.HeadCell>Rule name</Table.HeadCell>
+        <Table.HeadCell>Description</Table.HeadCell>
+        <Table.HeadCell>Names of states</Table.HeadCell>
+        <Table.HeadCell>State of others</Table.HeadCell>
+        <Table.HeadCell>
+          <span className="sr-only">Edit</span>
+        </Table.HeadCell>
+      </Table.Head>
+      <Table.Body className="divide-y">
+        {data.allRules.map((rule: Rule, i: Number) => (
+          <RuleTableRow key={i} rule={rule}></RuleTableRow>
+        ))}
+      </Table.Body>
+    </Table> */

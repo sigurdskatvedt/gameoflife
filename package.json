@@ -14,12 +14,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.13",
     "eslint-config-custom": "*",
-    "postcss": "^8.4.20",
     "prettier": "latest",
     "prettier-plugin-tailwindcss": "^0.2.1",
-    "tailwindcss": "^3.2.4",
     "turbo": "latest"
   },
   "engines": {
@@ -28,6 +25,16 @@
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./apps/webservice/prisma/seed.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/react-dom": "^18.0.11",
+    "autoprefixer": "^10.4.13",
+    "daisyui": "^2.46.1",
+    "encoding": "^0.1.13",
+    "gameoflife": "^1.1.2",
+    "graphql-request": "^5.1.0",
+    "immer": "^9.0.19",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4"
+  },
   "packageManager": "yarn@1.22.19"
 }
