@@ -2,7 +2,14 @@ import { DocumentNode } from "graphql";
 import request from "graphql-request";
 
 export async function getRule(ruleId: string, ruleQuery: DocumentNode) {
-  console.log(process.env.NEXT_PUBLIC_API_URL);
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    const API_URL: string =
+      "https://" + process.env.NEXT_PUBLIC_VERCEL_URL + "/api";
+    const data = await request(API_URL, ruleQuery, {
+      ruleId: ruleId,
+    });
+    return data.uniqueRule;
+  }
   if (process.env.NEXT_PUBLIC_API_URL) {
     const data = await request(process.env.NEXT_PUBLIC_API_URL, ruleQuery, {
       ruleId: ruleId,
@@ -13,6 +20,12 @@ export async function getRule(ruleId: string, ruleQuery: DocumentNode) {
 
 export async function getAllRules(ruleQuery: DocumentNode) {
   console.log(process.env.NEXT_PUBLIC_API_URL);
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    const API_URL: string =
+      "https://" + process.env.NEXT_PUBLIC_VERCEL_URL + "/api";
+    const data = await request(API_URL, ruleQuery);
+    return data;
+  }
   if (process.env.NEXT_PUBLIC_API_URL) {
     const data = await request(process.env.NEXT_PUBLIC_API_URL, ruleQuery);
     return data;
