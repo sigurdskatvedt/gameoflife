@@ -1,7 +1,7 @@
 import { Chunk, Rule } from "types";
 import { UiAccordionItem } from "./RuleAccordionItem";
 import { gql } from "graphql-request";
-
+        
 interface Props {
   rule: Rule;
 }

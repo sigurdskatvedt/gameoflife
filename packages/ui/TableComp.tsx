@@ -1,12 +1,13 @@
-import { data } from "autoprefixer";
-import { Rule } from "postcss";
-import { RuleTableRow } from "./RuleTableRow";
+
+import { Key } from "react";
+import { Rule } from "types";
+import { RuleTableRow, RuleTableRowProps } from "./RuleTableRow";
 
 type Props = {
   rules: Array<Rule>;
 };
 
-export function TableComp({ rules }: Props) {
+export const TableComp: React.FC<Props> = ({ rules }) => {
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
@@ -22,8 +23,8 @@ export function TableComp({ rules }: Props) {
           </tr>
         </thead>
         <tbody>
-          {rules.map((rule: Rule, i: Number) => (
-            <RuleTableRow key={i} rule={rule}></RuleTableRow>
+          {rules.map((rule: Rule, i: Key) => (
+            <RuleTableRow rule={rule} key={i}></RuleTableRow>
           ))}
         </tbody>
       </table>

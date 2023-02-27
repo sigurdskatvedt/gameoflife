@@ -1,11 +1,11 @@
 import { Rule } from "types/Rule";
 import Link from "next/link";
 
-interface Props {
+export type RuleTableRowProps = {
   rule: Rule;
-}
+};
 
-export const RuleTableRow: React.FunctionComponent<Props> = ({ rule }) => {
+export const RuleTableRow: React.FC<RuleTableRowProps> = ({ rule }) => {
   return (
     <tr>
       <td className="font-bold">{rule.name}</td>

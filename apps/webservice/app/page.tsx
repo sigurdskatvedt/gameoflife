@@ -5,6 +5,8 @@ export default function Page() {
   return (
     <>
       <UiNavbar></UiNavbar>
+      {/* 
+// @ts-expect-error*/}
       <UiTable></UiTable>
     </>
   )

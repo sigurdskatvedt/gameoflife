@@ -10,7 +10,9 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
   let [stateList, setStateList] = useState<string[]>(rule!.stateNames)
   let [newState, setNewState] = useState("")
 
-  const stateInput: FormEventHandler<HTMLInputElement> | undefined = e => {
+  const stateInput: FormEventHandler<HTMLInputElement> | undefined = (
+    e: React.FormEvent<HTMLInputElement>
+  ) => {
     e.preventDefault()
     setStateList(oldArray => [...oldArray, newState])
   }
@@ -42,7 +44,8 @@ export const UiRuleCard: React.FunctionComponent<Props> = ({ rule }) => {
               </div>
             ))
           : null}
-
+        {/* 
+// @ts-expect-error*/}
         <form onSubmit={stateInput}>
           <input
             type="text"
