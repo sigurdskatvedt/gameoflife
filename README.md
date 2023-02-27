@@ -18,6 +18,10 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
+### Access
+
+The rule administration panel is [hosted here](https://gameoflife-webservice.vercel.app/) and the Game of Life itself is [hosted here](https://gameoflife-gameoflife.vercel.app/).
+
 ### Developement
 
 While developing, run the developement build with the following command:
