@@ -6,7 +6,7 @@ import { UiNavbar } from "ui/Navbar"
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "Game of Life Dashboard",
+  title: "Game of Life",
   description: "Here you can manage the rules for Game of Life",
 }
 
