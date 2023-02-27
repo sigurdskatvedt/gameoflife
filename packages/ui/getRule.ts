@@ -2,13 +2,19 @@ import { DocumentNode } from "graphql";
 import request from "graphql-request";
 
 export async function getRule(ruleId: string, ruleQuery: DocumentNode) {
-  const data = await request("http://localhost:3000/api", ruleQuery, {
-    ruleId: ruleId,
-  });
-  return data.uniqueRule;
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    const data = await request(process.env.NEXT_PUBLIC_API_URL, ruleQuery, {
+      ruleId: ruleId,
+    });
+    return data.uniqueRule;
+  }
 }
 
 export async function getAllRules(ruleQuery: DocumentNode) {
-  const data = await request("http://localhost:3000/api", ruleQuery);
-  return data;
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    const data = await request(process.env.NEXT_PUBLIC_API_URL, ruleQuery);
+    return data;
+  }
 }
