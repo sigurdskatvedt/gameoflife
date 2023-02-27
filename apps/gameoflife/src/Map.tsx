@@ -16,7 +16,7 @@ import { LatLngBounds, LatLngExpression } from "leaflet";
 import { GeoJsonObject } from "geojson";
 //import "./App.css";
 
-/* function App() {
+function App() {
   // TODO: Get these from user input
   const numCols = 50;
   const numRows = 50;
@@ -118,14 +118,14 @@ import { GeoJsonObject } from "geojson";
       </div>
     </>
   );
-} */
+}
 
 // @src/app.jsx
 type BoundsProps = {
   initialZoom: number;
 };
 
-const Map = () => {
+/* const Map = () => {
   const initialZoom = 0.000003;
   let zoom = initialZoom;
 
@@ -161,6 +161,6 @@ const Map = () => {
       </MapContainer>
     </>
   );
-};
+}; */
 
-export default Map;
+export default App;
