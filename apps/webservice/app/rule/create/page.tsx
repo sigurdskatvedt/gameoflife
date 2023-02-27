@@ -1,5 +1,5 @@
 "use client"
-import { UiNavbar, UiRuleAccordion, UiRuleCard } from "ui"
+import { UiNavbar } from "ui"
 
 function CreatePage() {
   return (
