@@ -19,7 +19,6 @@ export async function getRule(ruleId: string, ruleQuery: DocumentNode) {
 }
 
 export async function getAllRules(ruleQuery: DocumentNode) {
-  console.log(process.env.NEXT_PUBLIC_API_URL);
   if (process.env.NEXT_PUBLIC_VERCEL_URL) {
     const API_URL: string =
       "https://" + process.env.NEXT_PUBLIC_VERCEL_URL + "/api";
