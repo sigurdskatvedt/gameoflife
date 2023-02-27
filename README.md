@@ -1,5 +1,9 @@
 # Game of Life, Leaflet
 
+## Access
+
+The rule administration panel is [hosted here](https://gameoflife-webservice.vercel.app/) and the Game of Life itself is [hosted here](https://gameoflife-gameoflife.vercel.app/).
+
 ## What's inside?
 
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
@@ -18,12 +22,26 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
-### Access
+### Dependencies
+Install dependencies with
+```
+yarn install
+```
 
-The rule administration panel is [hosted here](https://gameoflife-webservice.vercel.app/) and the Game of Life itself is [hosted here](https://gameoflife-gameoflife.vercel.app/).
-
+### Prisma Setup
+You need a working Postgres database and to connect it to Prisma. Add a .env and with, for example,
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/webserver"
+NEXT_PUBLIC_API_URL="http://localhost:3000/api"
+```
+Documentation for the Postgres URI can be [found here](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING)
+After setting it up, run
+```
+yarn prisma db push
+yarn prisma db seed
+yarn prisma migrate
+```
 ### Developement
-
 While developing, run the developement build with the following command:
 
 ```
