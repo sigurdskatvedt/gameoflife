@@ -39,20 +39,18 @@ export const UiAccordionItem: React.FunctionComponent<Props> = ({
         <div className="collapse-content">
           <div className="mb-2 text-gray-500 dark:text-gray-400">
             <div className="font-normal text-gray-700 dark:text-gray-400">
-              <span className="pr-2 text-xl font-bold">
+              <span className="p-4 text-xl font-bold">
                 New state for cells affected by rule:{" "}
               </span>
 
-              <div className="card bg-base-100 w-96 shadow-xl">
-                <span className="inline font-bold">
-                  {states[chunk.newState]}
-                </span>
+              <div className="card bg-base-100 mb-2 mt-2 w-full p-4 shadow-md">
+                <span className="font-bold">{states[chunk.newState]}</span>
               </div>
             </div>
             <div className="font-normal text-gray-700 dark:text-gray-400">
-              <span className="pr-2 text-xl font-bold">Conditions: </span>
-              <div className="card bg-base-100 w-96 shadow-xl">
-                <div className="inline">
+              <span className="p-4 text-xl font-bold">Conditions: </span>
+              <div className="card bg-base-100 w-full p-4 shadow-md">
+                <div className="mb-2 mt-2">
                   If cell is{" "}
                   <span className="inline font-bold">{stateString} </span>
                   and it has

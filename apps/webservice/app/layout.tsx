@@ -1,3 +1,4 @@
+import { UiNavbar } from "ui"
 import "../styles/globals.css"
 
 export default function RootLayout({
@@ -9,7 +10,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <UiNavbar></UiNavbar>
+        {children}
+      </body>
     </html>
   )
 }

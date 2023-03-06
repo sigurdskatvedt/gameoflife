@@ -4,6 +4,7 @@ import { gql } from "graphql-request";
 
 interface Props {
   rule: Rule;
+  editable: boolean;
 }
 
 const chunksQuery = gql`
